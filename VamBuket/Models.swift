@@ -8,4 +8,18 @@
 
 import Foundation
 
+struct Data: Decodable {
+    let data: DataClass
+}
 
+struct DataClass: Decodable {
+    let attributes: Attributes
+}
+
+struct Attributes: Decodable {
+    let firstName: String
+    let lastName: String
+    let phohe: String
+    let email: String
+    let role: String
+}

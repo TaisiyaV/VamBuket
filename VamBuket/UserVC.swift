@@ -28,7 +28,7 @@ class UserVC: UIViewController {
     @IBAction func exitButtonTapped(_ sender: Any) {
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: "jwt")
-        print(userDefaults.data(forKey: "jwt"))
+        print(userDefaults.object(forKey: "jwt") ?? "entry has been deleted")
             
     }
     

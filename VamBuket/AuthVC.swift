@@ -19,11 +19,13 @@ class AuthVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
     }
 
     @IBAction func loginButtonTapped(_ sender: Any) {
-        auth.authorization()
-        auth.getUserData()
+            auth.authorization()
+            auth.getUserData()
+
     }
     
 }

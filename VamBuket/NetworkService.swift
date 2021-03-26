@@ -32,8 +32,9 @@ class NetworkService {
             case .failure(let error):
                     print(error)
             }
-            
+              
         }
+        
 
    
     }
@@ -41,8 +42,8 @@ class NetworkService {
     
     func getUserData() {
         let userDefaultsGet = UserDefaults.standard
-        let jwt = userDefaultsGet.object(forKey: "jwt") as! String
-//        print(jwt)
+        guard let jwt = userDefaultsGet.string(forKey: "jwt") else { return }
+        print(jwt)
         
         
         let link = "http://api.dev.buket-vam.ru/api/v1/me"

@@ -79,10 +79,10 @@
 			children = (
 				578A2EBD260B873B00F06D33 /* AppDelegate.swift */,
 				578A2EBF260B873B00F06D33 /* SceneDelegate.swift */,
-				578A2EC1260B873B00F06D33 /* AuthVC.swift */,
-				578A2ED1260B8BC500F06D33 /* UserVC.swift */,
 				578A2ED5260DF84000F06D33 /* Models.swift */,
 				578A2ED3260C89A100F06D33 /* NetworkService.swift */,
+				578A2EC1260B873B00F06D33 /* AuthVC.swift */,
+				578A2ED1260B8BC500F06D33 /* UserVC.swift */,
 				578A2EC3260B873B00F06D33 /* Main.storyboard */,
 				578A2EC6260B873C00F06D33 /* Assets.xcassets */,
 				578A2EC8260B873C00F06D33 /* LaunchScreen.storyboard */,
