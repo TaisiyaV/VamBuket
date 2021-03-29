@@ -16,22 +16,29 @@ class UserVC: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var roleLabel: UILabel!
     
-    let auth = NetworkService()
-    
-    
+    let user = NetworkService()
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        user.getUserData(onCompleted: { (user) in
+            self.nameLabel.text = user.firstName
+            self.surnameLabel.text = user.lastName
+            self.phoneNumberLabel.text = user.phohe
+            self.emailLabel.text = user.email
+            self.roleLabel.text = user.role
+        }) { (error) in
+            print(error)
+        }
+ 
     }
+    
+
     
     @IBAction func exitButtonTapped(_ sender: Any) {
         let userDefaults = UserDefaults.standard
         userDefaults.removeObject(forKey: "jwt")
-        print(userDefaults.object(forKey: "jwt") ?? "entry has been deleted")
-            
+//        print(userDefaults.object(forKey: "jwt") ?? "entry has been deleted")          
     }
     
-
-
 }

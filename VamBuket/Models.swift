@@ -8,13 +8,13 @@
 
 import Foundation
 
-struct Data: Decodable {
-    let data: DataClass
-}
-
-struct DataClass: Decodable {
-    let attributes: Attributes
-}
+//struct Data: Decodable {
+//    let data: DataClass
+//}
+//
+//struct DataClass: Decodable {
+//    let attributes: Attributes
+//}
 
 struct Attributes: Decodable {
     let firstName: String
@@ -22,4 +22,5 @@ struct Attributes: Decodable {
     let phohe: String
     let email: String
     let role: String
+
 }

@@ -11,79 +11,58 @@ import Alamofire
 
 class NetworkService {
     
+    //"shop1@example.com"
+    //"password"
     
-    func authorization() {
+    func authorization(login: String,
+                       password: String,
+                       onCompleted: @escaping () -> Void,
+                       onError: @escaping (Error) -> Void) {
         
         guard let url = URL(string: "http://api.dev.buket-vam.ru/api/v1/login") else { return }
-        
-        let parameters = ["login": "shop1@example.com", "password": "password"]
+        let parameters = ["login": login, "password": password]
       
         AF.request(url, method: .post, parameters: parameters).validate().responseJSON { response in
-
-
             switch response.result {
             case .success(let value):
                 guard let jsonObject = value as? [String: Any] else { return }
                 guard let jwt = jsonObject["jwt"] else { return }
-                print(jwt)
+//                print(jwt)
                 let userDefaults = UserDefaults.standard
                 userDefaults.set(jwt, forKey: "jwt")
-
+                onCompleted()
             case .failure(let error):
-                    print(error)
+                onError(error)
+//                print(error)
             }
-              
         }
-        
-
-   
     }
     
     
-    func getUserData() {
+    func getUserData(onCompleted: @escaping (Attributes) -> Void,
+                    onError: @escaping (Error) -> Void) {
         let userDefaultsGet = UserDefaults.standard
         guard let jwt = userDefaultsGet.string(forKey: "jwt") else { return }
-        print(jwt)
-        
-        
+//        print(jwt)
         let link = "http://api.dev.buket-vam.ru/api/v1/me"
         let header: HTTPHeaders = ["Authorization": jwt]
         AF.request(link, method: .get, headers: header).validate().responseJSON { (response) in
             switch response.result {
             case .success(let value):
                 guard let jsonObject = value as? [String: Any] else { return }
+                guard let data = jsonObject["data"] as? [String: Any] else { return }
+                guard let attributes = data["attributes"] as? [String: Any] else { return }
                 
-                print(jsonObject)
-                
+                let user = Attributes(firstName: attributes["first_name"] as! String, lastName: attributes["last_name"] as! String, phohe: attributes["phone"] as! String, email: attributes["email"] as! String, role: attributes["role"] as! String)
+
+                onCompleted(user)
+//                print(user)
             case .failure(_):
-                print("unadable decode data")
-                
-                return
+//                print("unadable decode data")
+                onError(NSError())
             }
         }
-       
-        
+    
     }
-    
-    
-//    func getBag(onCompleted: @escaping ([BagCatalog]) -> Void,
-//                onError: @escaping (Error) -> Void) {
-//
-//        AF.request(link, method: .get).validate().responseJSON { response in
-//
-//            switch response.result {
-//            case .success(let value):
-//                for item in value as! [[String: AnyObject]] {
-//                    let bagsData = BagCatalog(title: item["title"] as! String, url: item["url"] as! String)
-//                    self.dataArray.append(bagsData)
-//                }
-//                onCompleted(self.dataArray)
-//            case .failure(_):
-//                print("unadable decode data")
-//                onError(NSError())
-//                return
-//            }
-//        }
-//    }
     
 }
